@@ -1,0 +1,19 @@
+//点击返回按钮返回到上一页面
+function goBack(){
+	window.history.back();
+}
+
+<a class="back" id="btnback" onClick="javaScript:goBack();"><i></i></a>
+
+
+
+//下面语句执行时页面自动跳转到当前网页的顶端
+scroll(0,0)
+
+
+
+//3、手机端点击右下角“+”弹出新的一层
+
+//4、点击右上角的“...”出现头部菜单
+
+//4、jquery-table2excel是一款可以将HTML表格的内容导出到微软Excel电子表格中的jQuery插件。该插件可以根据你的需要导出表格中的内容，不需要的行可以不导出。

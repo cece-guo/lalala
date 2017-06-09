@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset = "utf-8">
+		<title>canvas</title>	
+		<script src="http://o7m41tvmg.bkt.clouddn.com/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="Dependence.js"></script>
+		<style >
+			* {
+				margin:0;
+				padding:0;
+			}
+			.tools {
+				border:1px solid #ccc;
+				width:200px;
+				height:200px;
+				float:left;
+				padding:5px;
+				margin-right:10px;
+			}
+			.main {
+				border:1px solid #ccc;
+				float:left;
+				width:600px;
+				height:600px;
+			}
+			.tools input {
+				width:50px;
+				height:25px;
+				border:1px solid #999;
+			}
+			.main canvas.c {
+				display:block;
+				width:600px;
+				height:600px;
+			}
+			.selectImg{
+				width:50px;
+				heigth:50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tools" id="tools">
+			<input type="button" id="btnDelete" style="background:url("")" value="移除">
+			<input type="button" id="btnSave" style="background:url("")" value="保存">
+			<input type="button" id="btnLoad" style="background:url("")" value="加载">
+			<div class="LittleImg" id="LittleImg">
+				<img class="selectImg" id="selectImg_1" src="img/1.png"/>
+			</div>
+		</div>
+		<div class="main" id="main">
+			<canvas class="c" id="c"></canvas>
+		</div>
+	</body>
+</html>
