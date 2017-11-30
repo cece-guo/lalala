@@ -1,0 +1,146 @@
+三、渲染元素
+React元素是React应用程序中的最小构建结构
+const element = <h1>hello world</h1>;
+与浏览器不同，React是纯对象，创建起来很方便。React DOM负责匹配React元素并更新DOM。
+
+渲染元素的到DOM
+将React元素渲染到root DOM节点，将其传递给 ReactDOM.render() 方法“
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
+const element = <h1>hello world</h1>;
+React.render (
+    element,
+    document.getElementById('root')
+);
+
+更新渲染元素
+React元素是不可变的，创建元素后，就不能更改其子元素或属性。
+更新ui的唯一方法是创建一个新的元素，并将其传递给ReactDOM.render().
+
+
+四、组件化和属性
+组件允许您将UI拆分成为独立的可重用的部分，并单独地考虑每个部分。
+
+功能性组件和类组件
+
+javascript函数：
+function Welcome(props) {
+    return <h1>hello, {props.name}</h1>
+}
+上面函数称为功能组件(functional),因为它们是javascript函数
+
+还可以使用ES6类来定义组件：
+class Welcome extends React.Component {
+    render () {
+        return <h1>hello,{this.props.name}</h1>
+    }
+}
+上面两个组件是等效的
+
+*渲染一个组件
+function Welcome () {
+    return <h1>Hello ,{props.name}</h1>
+}
+
+const element = <Welcome name = "nanfang">;
+ ReactDOM.render(
+     element,
+     document.getElementById('root')
+ );
+
+ 上述代码执行步骤：
+ 1、首先调用ReactDom.render()方法，并处理<Welcome name= "nanfang">组件
+ 2、React使用{name: 'nanfang'}作为props调用Welcome组件
+ 3、Welcome组件返回一个<h1>Hello, nanfang</h1>元素作为结果
+ 4、ReactDOM根据<h1>Hello, nanfang</h1>来更新DOM
+
+ tips:组件名称必须始终首字母大写。
+
+*编写组件
+组件可以在其返回值中引用其他组件，这允许我们对任何级别的细节使用相同的组件抽象。一个按钮 等等
+在React应用程序中，这些通常表示为组件。
+
+例如：
+function Welcome() {
+    return <h1>Hello, {props.name}</h1>
+}
+function App () {
+    return (
+        <div>
+            <Welcome name= "zhangsan" />
+            <Welcome name= "lisi" />
+            <Welcome name= "wangmazi" />
+        </div>
+    );
+}
+
+React.render(
+    <App />,
+    document.getElementById('root')
+);
+
+tips:引用多个组件时必须包裹在一个根元素中返回。
+
+*抽离组件
+对于复杂情况，尽量拆分成更小的组件，方便复用。
+ 例如：
+
+ import React from 'react';
+ import ReactDOM from 'react-dom';
+
+ function formatDate (date) {
+     return date.toISOString;
+ }
+
+ function Avator(props) {
+     return (
+         <img className= "Avator"
+            src= {props.user.avatorUrl}
+            alt= {props.user.name}
+         />
+     )
+ }
+
+function UserInfo(props) {
+    return (
+        <div className= "UserInfo">
+            <avator user= {props.user}>
+            <div className= "UserInfo-name">
+                {props.user.name}
+            </div>
+        </div>
+    );
+}
+
+function Comment (props) {
+    return (
+        <div className= "Comment">
+            <UserInfo user = {props.author}>
+            <div className= "Comment-text">
+                {props.text}
+            </div>
+            <div className= "Comment-date">
+                {FormatDate(props.date)}
+            </div>
+        </div>
+    );
+}
+
+ReactDOM.render(
+    <Comment author= {{
+        avatarurl:'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/3ae1dc06.jpg',
+        name: 'zhangsan'
+    }} text= {'我的名字叫张亚涛'} date= {new Date()}/>,
+    document.getElementById('root')
+);
+
+*props是只读的
+
+五、State和生命周期
+
+
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello world</title>
+  <!-- Script tags including React -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min.js"></script>
+  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+<!-- 
+    <script type= "text/babel">
+        class Header extends React.Component {
+            render() {
+                return (
+                <div className="header">
+                    <div className="menuIcon">
+                    <div className="dashTop"></div>
+                    <div className="dashBottom"></div>
+                    <div className="circle"></div>
+                    </div>
+
+                    <span className="title">
+                    {this.props.title}
+                    </span>
+
+                    <input
+                    type="text"
+                    className="searchInput"
+                    placeholder="Search ..." />
+
+                    <div className="fa fa-search searchIcon"></div>
+                </div>
+                )
+            }
+        }
+
+        
+        var mount = document.querySelector('#app');
+        ReactDOM.render(<Header />, mount);
+</script> -->
+
+
+    <script>
+
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+        
+
+        function tick() {
+            const element = (
+                <div>
+                    <h1>hello world</h1>
+                    <h2>it is {new Date().toLocaleTimeString()}</h2>
+                </div>
+            );
+            ReactDOM.render(
+                element,
+                document.getElementById('app')
+            )
+        }
+
+        setInterval(tick, 1000);
+    </script>
+</body>

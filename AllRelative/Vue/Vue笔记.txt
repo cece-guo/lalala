@@ -1,0 +1,52 @@
+三、模板语法
+
+1、插值
+（1）文本
+<span>Message: {{ msg }} </span>
+<span v-once> 这个将不会改变: {{ msg }} </span>
+
+（2）原始HTML
+<span v-html= "rawHTML"></span>
+
+（3）特性
+当修改HTML属性时需要用v-bind指令
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+
+<div v-bind:id="dynamicId"></div>
+<button v-bind:disabled= "isButtonDisabled"></button>
+
+（4）使用javascript表达式
+
+ {{ number + 1 }}
+ {{ ok ? 'yes' : 'no' }}
+
+ （5）指令
+ 指令属性的值预期是单个javascript表达式，
+ 职责是当表达式改变时，将其产生的连带影响，响应式地作用于DOM
+
+ （6）参数
+
+ <a v-bind:href= "url">...</a>
+ <a v-on:click="doSomething">...</a>
+
+ （7）修饰符
+
+ 2、缩写
+ （1）v-bind
+ <a v-bind:href="url">...</a>
+ 
+ <a :href="url">...</a>
+
+ （2）v-on
+ <a v-on:click="doSomething">...</a>
+ 
+ <a @href="doSomething">...</a>
+
+
+四、计算熟悉和观察者
+1、计算机属性
+
