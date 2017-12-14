@@ -1,162 +1,356 @@
 三、模板语法
 
-1、插值
-（1）文本
-<span>Message: {{ msg }} </span>
-<span v-once> 这个将不会改变: {{ msg }} </span>
+    1、插值
+    （1）文本
+    <span>Message: {{ msg }} </span>
+    <span v-once> 这个将不会改变: {{ msg }} </span>
 
-（2）原始HTML
-<span v-html= "rawHTML"></span>
+    （2）原始HTML
+    <span v-html= "rawHTML"></span>
 
-（3）特性
-当修改HTML属性时需要用v-bind指令
-    <div id="app-2">
-        <span v-bind:title="message">
-            鼠标悬停几秒钟查看此处动态绑定的提示信息！
-        </span>
-    </div>
+    （3）特性
+    当修改HTML属性时需要用v-bind指令
+        <div id="app-2">
+            <span v-bind:title="message">
+                鼠标悬停几秒钟查看此处动态绑定的提示信息！
+            </span>
+        </div>
 
-<div v-bind:id="dynamicId"></div>
-<button v-bind:disabled= "isButtonDisabled"></button>
+    <div v-bind:id="dynamicId"></div>
+    <button v-bind:disabled= "isButtonDisabled"></button>
 
-（4）使用javascript表达式
+    （4）使用javascript表达式
 
- {{ number + 1 }}
- {{ ok ? 'yes' : 'no' }}
+    {{ number + 1 }}
+    {{ ok ? 'yes' : 'no' }}
 
- （5）指令
- 指令属性的值预期是单个javascript表达式，
- 职责是当表达式改变时，将其产生的连带影响，响应式地作用于DOM
+    （5）指令
+    指令属性的值预期是单个javascript表达式，
+    职责是当表达式改变时，将其产生的连带影响，响应式地作用于DOM
 
- （6）参数
+    （6）参数
 
- <a v-bind:href= "url">...</a>
- <a v-on:click="doSomething">...</a>
+    <a v-bind:href= "url">...</a>
+    <a v-on:click="doSomething">...</a>
 
- （7）修饰符
+    （7）修饰符
 
- 2、缩写
- （1）v-bind
- <a v-bind:href="url">...</a>
- 
- <a :href="url">...</a>
+    2、缩写
+    （1）v-bind
+    <a v-bind:href="url">...</a>
+    
+    <a :href="url">...</a>
 
- （2）v-on
- <a v-on:click="doSomething">...</a>
- 
- <a @href="doSomething">...</a>
+    （2）v-on
+    <a v-on:click="doSomething">...</a>
+    
+    <a @href="doSomething">...</a>
 
 
 四、计算熟悉和观察者
-1、计算机属性
-。。。
+    1、计算机属性
+    。。。
 
-2、侦听器Watch
+    2、侦听器Watch
 
 五、Class与Style绑定
 
-1、绑定HTML Class
+    1、绑定HTML Class
 
-/************/
- <div v-bind:class='classObject'></div>
+    /************/
+    <div v-bind:class='classObject'></div>
 
- data : {
-     classObject: {
-         active: true,
-         'text-danger':false
-     }
- }
-
-/***********/
-<div v-bind:class= "classObject"></div>
-
-data: {
-    isActive: true,
-    error:null
-}
-computed: {
-    classObject:function() {
-        return {
-            active: this.isActive && ! this.error,
-            'text-danger': this.error && this.error.type==='fatal'
+    data : {
+        classObject: {
+            active: true,
+            'text-danger':false
         }
     }
-}
 
-2、绑定style内联样式
+    /***********/
+    <div v-bind:class= "classObject"></div>
 
-/***********/
-<div v-bind:style= "styleObject"></div>
-
-data: {
-    styleObject : {
-        color:red,
-        font-size: '13px'
+    data: {
+        isActive: true,
+        error:null
     }
-}
+    computed: {
+        classObject:function() {
+            return {
+                active: this.isActive && ! this.error,
+                'text-danger': this.error && this.error.type==='fatal'
+            }
+        }
+    }
+
+    2、绑定style内联样式
+
+    /***********/
+    <div v-bind:style= "styleObject"></div>
+
+    data: {
+        styleObject : {
+            color:red,
+            font-size: '13px'
+        }
+    }
 
 
 六、条件渲染 
-1、v-if
+    1、v-if
 
-<h1 v-if = "ok">Yes</h1>
-<h1 v-else>No</h1>
+    <h1 v-if = "ok">Yes</h1>
+    <h1 v-else>No</h1>
 
-或者
-<template v-if = "ok">
-    <h1>Title</h1>
-    <h1>paragraph1</h1>
-    <h1>paragraph2</h1>
-</template>
-
-
-v-else 必须紧跟在v-if或者v-else-if后面，否则将不会被识别
-<div v-if="type === 'A'">
-    A
-</div>
-<div v-else-if="type === 'B'">
-    B
-</div>
-<div v-else-if="type === 'C'">
-    C
-</div>
-<div v-else>
-    not A/B/C
-</div>
+    或者
+    <template v-if = "ok">
+        <h1>Title</h1>
+        <h1>paragraph1</h1>
+        <h1>paragraph2</h1>
+    </template>
 
 
-2、key：管理可复用的元素
-Vue会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染，
-比如下面语句：
-<template v-if="loginType === 'username'">
-  <label>Username</label>
-  <input placeholder="Enter your username">
-</template>
-<template v-else>
-  <label>Email</label>
-  <input placeholder="Enter your email address">
-</template>
-切换登录类型（登录名或者邮箱）时，input框会复用，而不是重新渲染，会导致切换时input中内容保留
+    v-else 必须紧跟在v-if或者v-else-if后面，否则将不会被识别
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        not A/B/C
+    </div>
 
-而使用key时，输入框会重新渲染，代码如下：
 
-<template v-if = "loginType === 'username'">
+    2、key：管理可复用的元素
+    Vue会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染，
+    比如下面语句：
+    <template v-if="loginType === 'username'">
     <label>Username</label>
-    <input placeHolder= "Enter your name" key= "username-input">
-</template>
-<template v-if = "loginType === 'username'">
+    <input placeholder="Enter your username">
+    </template>
+    <template v-else>
     <label>Email</label>
-    <input placeHolder= "Enter your Email" key= "Email-input">
-</template>
+    <input placeholder="Enter your email address">
+    </template>
+    切换登录类型（登录名或者邮箱）时，input框会复用，而不是重新渲染，会导致切换时input中内容保留
 
-3、v-show
-<h1 v-show= "ok">Hello!</h1>
-带有v-show的元素始终会被渲染并保留在DOM中，v-show只是简单地切换元素的css属性display
+    而使用key时，输入框会重新渲染，代码如下：
 
-4、v-if与v-show的区别
-v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。
-因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+    <template v-if = "loginType === 'username'">
+        <label>Username</label>
+        <input placeHolder= "Enter your name" key= "username-input">
+    </template>
+    <template v-if = "loginType === 'username'">
+        <label>Email</label>
+        <input placeHolder= "Enter your Email" key= "Email-input">
+    </template>
+
+    3、v-show
+    <h1 v-show= "ok">Hello!</h1>
+    带有v-show的元素始终会被渲染并保留在DOM中，v-show只是简单地切换元素的css属性display
+
+    4、v-if与v-show的区别
+    v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。
+    因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
 
 
 七、列表渲染
-用v-for
+    用v-for
+
+八、事件处理
+    1、监听事件
+    v-on
+
+    2、事件处理方法
+    示例：
+    <div id= "example-2">
+        <button v-on:click= "greet">Greet</button>
+    </div>
+
+    var example2= new Vue({
+        el: '#example-2',
+        data: {
+            name: 'Vue.js'
+        },
+        method: {
+            greet: function(event) {
+                alert('Hello' + this.name + '!')
+                if (event) {
+                    alert(event.target.tagName)
+                }
+            }
+        }
+    })
+
+    3、内联处理器中的方法
+    除了绑定到一个方法，也可以在内联javascript语句中调用方法：
+    <div id= "example-3">
+        <button v-on: click= "say('hi')">Say hi </button>
+        <button v-on: click= "say('what')">Say what </button>
+    </div>
+
+    new Vue ({
+        el:"example-3"
+        method: {
+            say: function(message) {
+                alert(message)
+            }
+        }
+    })
+
+    4、事件修饰符
+    .stop
+    .prevent
+    .capture
+    .self
+    .once <!-- 点击事件将只会触发一次 -->
+
+    <a v-on:click.stop= "doThis"></a>
+
+    5、按键修饰符
+    在监听键盘事件时，通常要检查常见的键值。Vue允许为v-on在监听键盘事件时添加按键修饰符：
+    <input v-on:keyup.13 = "submit">
+
+    或者
+    <input @keyup.enter = "submit">
+
+    全部案件别名：
+    .enter  .tab   .delete  .esc  .space  .up 
+    .down  .left  .right
+
+
+    6、系统修饰键
+    .ctrl  .alt  .shift  .meta
+    例：
+    <input @keyup.alt.67 = "clear">
+    上述语句必须要求alt与常规按键67同事按下才有效
+
+
+
+    .exact 修饰符
+    //ctrl与alt键同时按下会触发
+    <button @keyup.ctrl = "onClick">A</button>
+    //仅在ctrl按下时触发
+    <button @keyup.ctrl.exact = "onClick">A</button>
+
+
+    鼠标按钮修饰
+
+九、表单输入绑定 v-model
+    1、基础用法
+        文本
+        <input v-moodel= "message" placeholder= "edit me">
+        <p Message id : {{ message }> </p>
+
+        多行文本
+        <span>Multiline message is:</span>
+        <p style= "ehite-space:pre-line"> {{ message }}</p>
+        <textarea v-model= "message" placeholder= "请输入"> </textarea>
+
+        复选框
+        <input type= "checkbox" id="checkbox" v-model= "checked">
+        <label for= "checkbox">{{message}}</label>
+
+        多个勾选框，绑定到同一个数组
+        <div id="example-3">
+            <input type="checkbox" id= "jack" value="jack" v-model="checkedNamaes">
+            <label for= "jack">Jack</label>
+            <input type="checkbox" id= "john" value="john" v-model="checkedNamaes">
+            <label for= "john">john</label>
+            <input type="checkbox" id= "mike" value="mike" v-model="checkedNamaes">
+            <label for= "mike">mike</label>
+        </div>
+
+        new Vue({
+            el: "#example-3",
+            data: {
+                checkedNamaes: []
+            }
+        })
+
+        单选按钮
+        <div id="example-4">
+            <input type="radio" id="one" value= "one" v-model= "picked">
+            <label for = "one">One </label>
+            <br/>
+            <input type= "radio" id="two" value= "two" v-model="picked"> 
+            <label for = "two">two</label>
+            <span >Picked : {{ picked }}</span>
+        </div>
+
+        new Vue({
+            el:"#example-4",
+            data: {
+                picked:''
+            }
+        })
+
+        选择列表
+        多选列表
+    2、值绑定
+        复选框
+        单选按钮
+        选择列表的选项
+    3、修饰符
+        .lazy
+        .number
+        .trim <input v-model.trim="msg">
+
+    
+十、组件
+    1、使用组件
+        （1）、全局注册
+            Vue.component('my-component', {
+
+            })
+
+        例：
+            //注册
+            Vue.component('my-component',{
+                template: '<div>A custome component</div>'
+            })
+            new Vue({
+                el: "#example"
+            })
+
+
+            
+            <div id="example">
+                <my-component></<my-component>>
+            </div>
+
+            渲染为：
+            <div id="example">
+                <div>A custome component</div>
+
+        tips：注意确保在初始化根实例之前注册组件。
+
+        （2）局部注册
+        （3）DOM模板解析注意事项
+            比如:
+            <table>
+                <my-row></my-row>
+            </table>
+            上面语句会报错，要修改成
+            <table>
+                <tr is="my-row"></tr>
+            </table>
+        （4）data必须是函数
+        （5）组件组合
+    2、Prop
+    （1）使用Prop传递参数
+    组件实例的作用域是孤立的，这意味着不能在子组件的模板内直接引用父组件的数据。父组件的数据需要通过prop才能下发到子组件中
+    Vue.component('child', {
+        props: ['message'],
+        template: '<span> {{ messagee }}</span>'
+    })
+
+    <child message= "hello!"></child>
+
+    （2）驼峰式命名和短横线分割式命名
+    （3）动态Prop
+    
